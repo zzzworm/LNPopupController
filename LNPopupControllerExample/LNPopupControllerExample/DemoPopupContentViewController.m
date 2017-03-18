@@ -8,9 +8,13 @@
 
 #import "DemoPopupContentViewController.h"
 
+@import AVFoundation;
 @import LNPopupController;
 
 @interface DemoPopupContentViewController ()
+{
+	AVAudioPlayer* _player;
+}
 
 @end
 
@@ -34,6 +38,19 @@
 	
 	self.popupItem.leftBarButtonItems = @[ play ];
 	self.popupItem.rightBarButtonItems = @[ next ];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	
+	[[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+	[[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error:NULL];
+	[[AVAudioSession sharedInstance] setActive:YES error:NULL];
+	
+	_player = [[AVAudioPlayer alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"music" withExtension:@"mp3"] error:NULL];
+	[_player prepareToPlay];
+	[_player play];
 }
 
 - (BOOL)prefersStatusBarHidden

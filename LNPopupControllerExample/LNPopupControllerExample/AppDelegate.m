@@ -26,6 +26,11 @@
 	return NO;
 }
 
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+	NSLog(@"AppDelegate Remote Control Event: %@", event);
+}
+
 - (UIWindow *)window
 {
 	if(!_window)
