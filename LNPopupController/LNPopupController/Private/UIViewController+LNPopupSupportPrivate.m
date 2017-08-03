@@ -443,8 +443,6 @@ void _LNPopupSupportFixInsetsForViewController(UIViewController* controller, BOO
 
 - (void)setToolbarBuggy:(BOOL)toolbarHidden
 {
-	NSLog(@"b:%@", @(toolbarHidden));
-	
 	objc_setAssociatedObject(self, LNToolbarBuggy, @(toolbarHidden), OBJC_ASSOCIATION_RETAIN);
 }
 
@@ -490,8 +488,8 @@ void _LNPopupSupportFixInsetsForViewController(UIViewController* controller, BOO
 		m2 = class_getInstanceMethod([self class], @selector(_ln_childViewControllerForStatusBarHidden));
 		method_exchangeImplementations(m1, m2);
 		
-		m1 = class_getInstanceMethod([self class], @selector(setNavigationBarHidden:animated:)),
-		m2 = class_getInstanceMethod([self class], @selector(_ln_setNavigationBarHidden:animated:)),
+		m1 = class_getInstanceMethod([self class], @selector(setNavigationBarHidden:animated:));
+		m2 = class_getInstanceMethod([self class], @selector(_ln_setNavigationBarHidden:animated:));
 		method_exchangeImplementations(m1, m2);
 		
 #ifndef LNPopupControllerEnforceStrictClean
